@@ -28,8 +28,33 @@ def ceres_search():
                         ans += 1
     return ans
 
+def ceres_search2():
+    # get input 2D array
+    arr = []
+    with open("input.txt") as f:
+        for line in f:
+            arr.append(list(line[:-1]))
+    h = len(arr)
+    w = len(arr[0])
+    ans = 0
+    def is_xmas(x,y):
+        if arr[x][y] != 'A':
+            return False
+        if x == 0 or x == h-1 or y == 0 or y == w-1:
+            return False
+        d1 = (arr[x-1][y-1] == 'M' and arr[x+1][y+1] == 'S') or (arr[x-1][y-1] == 'S' and arr[x+1][y+1] == 'M')
+        d2 = (arr[x-1][y+1] == 'M' and arr[x+1][y-1] == 'S') or (arr[x-1][y+1] == 'S' and arr[x+1][y-1] == 'M')
+        return d1 and d2
+
+    for x in range(h):
+        for y in range(w):
+            if is_xmas(x, y):
+                ans += 1
+    return ans
+
     
 
 
 if __name__ == "__main__":
     print(ceres_search())
+    print(ceres_search2())
